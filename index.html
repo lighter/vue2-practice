@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head><title></title></head>
+
+    <body>
+        <div id="test">
+            <input type="text" id="input" v-model="message"/>
+
+            <p>This is input string {{ message }}</p>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+        <script>
+            new Vue({
+                el: "#test",
+                data: {
+                    message: 'hello world'
+                }
+            });
+        </script>
+    </body>
+</html>
