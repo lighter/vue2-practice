@@ -1,37 +1,101 @@
 <!DOCTYPE html>
 <html>
-    <head><title></title></head>
 
-    <body>
-        <div id="test">
-            <input type="text" id="input" v-model="message"/>
+<head>
+    <title></title>
+    <style>
+        .color-red {
+            color: red
+        }
+        
+        .is-loading {
+            background: red;
+        }
+    </style>
+</head>
 
-            <p>This is input string {{ message }}</p>
+<body>
+    <div id="test">
+        <input type="text" id="input" v-model="message" />
 
-            <ul>
-                <li v-for="name in names" v-text="name"></li>
-            </ul>
+        <p>This is input string {{ message }}</p>
 
-            <input type="text"  v-model="inputName"/>
-            <button v-on:click="addName">click</button>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <ul>
+            <li v-for="name in names" v-text="name"></li>
+        </ul>
 
-        <script>
-            var app = new Vue({
-                el: "#test",
-                data: {
-                    inputName: '',
-                    message: 'hello world',
-                    names: ['A', 'B', 'C', 'D']
+        <input type="text" v-model="inputName" />
+        <button v-on:click="addName">click</button>
+
+        <hr>
+
+        <h1>Attribute and Class binding</h1>
+        <button v-bind:title="title">Click Me</button>
+        <h2 :class="className">Hello world</h2>
+        <button :class=" { 'is-loading': isLoading } " @click="toggleClass">Toggle Me</button>
+
+        <hr>
+
+        <h1>Compuetd properties</h1>
+        <h1>{{ reversedMessage }}</h1>
+
+        <ul>
+            <li v-for="task in tasks" v-if="task.completed" v-text="task.description"></li>
+        </ul>
+
+        <h2>Incomplete Tasks</h2>
+
+        <ul>
+            <li v-for="task in incompleteTasks" v-text="task.description"></li>
+        </ul>
+        <hr>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <script>
+        var app = new Vue({
+            el: "#test",
+            data: {
+                inputName: '',
+                message: 'hello world',
+                names: ['A', 'B', 'C', 'D'],
+                title: 'hover title',
+                className: 'color-red',
+                isLoading: false,
+                tasks: [{
+                    description: 'Go to the store',
+                    completed: true
+                }, {
+                    description: 'AAAAAAAAAAAAAAA',
+                    completed: false
+                }, {
+                    description: 'BBBBBBBBBBBBBBB',
+                    completed: false
+                }, {
+                    description: 'CCCCCCCCCCCCCCC',
+                    completed: true
+                }, ]
+            },
+            methods: {
+                addName() {
+                    this.names.push(this.inputName);
+                    this.inputName = '';
                 },
-                methods: {
-                    addName() {
-                        this.names.push(this.inputName);
-                        this.inputName = '';
-                    }
+
+                toggleClass() {
+                    this.isLoading = true;
                 }
-            });
-        </script>
-    </body>
+            },
+            computed: {
+                reversedMessage() {
+                    return this.message.split('').reverse().join('');
+                },
+                incompleteTasks() {
+                    return this.tasks.filter(task => !task.completed)
+                }
+            }
+        });
+    </script>
+</body>
+
 </html>
