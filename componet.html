@@ -8,14 +8,12 @@
 
 <body>
     <div id="root" class="container">
-        <modal>
-            <template slot="header">My title</template> This is Content block
-
-            <template slot="footer">
-                <a class="button is-primary">Save changes</a>
-                <a class="button">Cancel</a>
-            </template>
-        </modal>
+        <progress-view inline-template>
+            <div>
+                <h1>Your progress through this course is {{ completionRate }}</h1>
+                <button @click="completionRate += 10">up progress</button>
+            </div>
+        </progress-view>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
